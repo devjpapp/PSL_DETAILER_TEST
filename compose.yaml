@@ -1,0 +1,14 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@psl.local}
+      COOKIE_SECURE: ${COOKIE_SECURE:-0}
+    volumes:
+      - psl-data:/app/data
+    command: ["sh", "-c", "node server/setup.js && node server/index.js"]
+    restart: unless-stopped
+volumes:
+  psl-data:
